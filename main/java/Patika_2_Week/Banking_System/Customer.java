@@ -7,6 +7,7 @@ public class Customer {
     private String password;
     private String identity;
     private BankAccount[] bankAccounts;
+    private int bankAccountConter = 0;
 
 
     public Customer(String name, String surname, String password, String identity) {
@@ -22,6 +23,23 @@ public class Customer {
             System.out.println(" Kullanıcı oluşturuldu ! " + this);
         }
 
+    }
+
+    public void addAccount(BankAccount bankAccount) {
+        if (bankAccountConter < bankAccounts.length) {
+            bankAccounts[bankAccountConter] = bankAccount;
+            bankAccountConter++;
+            System.out.println(" Yeni Hesap Eklendi: " + bankAccount.getAccountNumber());
+        } else {
+            System.out.println("Maksimum hesap limitine ulaşıldı ! ");
+        }
+    }
+
+    public void listAccount() {
+        System.out.println(getName() + " adlı kullanıcının hesapları: ");
+        for (BankAccount bankAccount : bankAccounts) {
+            System.out.println(bankAccount);
+        }
     }
 
     public String getName() {

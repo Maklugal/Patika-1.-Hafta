@@ -9,7 +9,7 @@ public class BankingSystem {
     public static void main(String[] args) {
 
 
-        Customer customer = new Customer("Elif", "Ak", "12345678", "12345678910");
+        Customer customer = new Customer("Mehmet", "Ak", "12345678", "12345678910");
         customers[0] = customer;
         menu();
 
@@ -23,37 +23,62 @@ public class BankingSystem {
 
         int choise;
         do {
-            System.out.println("----- Bankacılık işlemleri ----- ");
-            System.out.println(" 1 - Yeni Hesap Aç");
-            System.out.println(" 2- Hesaplarını Listele ");
-            System.out.println("3- Hesap seç ve işlem Yap");
-            System.out.println(" Çıkış Yap ");
-            System.out.print(" Seçimizi Yapın");
+            printMenu();
 
             choise = scanner.nextInt();
 
             switch (choise) {
                 case 1:
-                    System.out.println(" Başlangıç bakiyesi girin: ");
-                    double amount = scanner.nextDouble();
-                    System.out.println(" Para Birimi Seçiniz: 1 - TL | 2 - DOLAR | 3- EURO | 4 - ALTIN");
-                    int currencyChoise = scanner.nextInt();
+                    craateBankAccount(scanner);
+                    break;
+                case 2:
+                    customers[0].listAccount();
+                    break;
+                case 3:
+                    customers[0].listAccount();
+                    System.out.println(" İşlem yapmak istediğiniz hesabı seçiniz: !");
+                    int selectedIndex = scanner.nextInt();
+                    BankAccount selectedBankAccount = customers[0].getBankAccounts()[selectedIndex];
 
-                    CurrencyType currencyType = switch (currencyChoise) {
-                        case 1 -> CurrencyType.TL;
-                        case 2 -> CurrencyType.DOLAR;
-                        case 3 -> CurrencyType.EURO;
-                        case 4 -> CurrencyType.ALTIN;
-                        default -> {
-                            System.out.println(" Geçersiz birim seçtiniz ! ");
-                            yield CurrencyType.TL;
+                    int subChoise;
+
+                    do {
+
+                        System.out.println(" ---- " + selectedBankAccount.getAccountNumber() + " hesabı için işlem yapıyorsunuz !");
+                        System.out.println(" 1 - Bakiye Görüntüle ");
+                        System.out.println(" 2 - Para Yatır  ");
+                        System.out.println(" 3 - Para Çek ");
+                        System.out.println(" 0 - Ana Menüye Dön ");
+
+                        subChoise = scanner.nextInt();
+
+                        switch (subChoise) {
+                            case 1:
+                                System.out.println(selectedBankAccount.getAccountNumber() + " : " + selectedBankAccount.getBalance() + " " + selectedBankAccount.getCurrencyType().getSembol());
+                                break;
+                            case 2:
+                                System.out.println(" Yatırmak istediğiniz miktarı giriniz: ");
+                                double amount = scanner.nextDouble();
+                                selectedBankAccount.deposit(amount);
+                                break;
+                            case 3:
+                                System.out.println(" Çekmek istediğiniz miktarı giriniz: ");
+                                double drawAmount = scanner.nextDouble();
+                                selectedBankAccount.withDraw(drawAmount);
+                                break;
+                            case 0:
+                                System.out.println(" Ana menüye aktarılıyorsunuz... ");
+                                break;
                         }
-                    };
 
-                    String customerName = customers[0].getName();
-                    String accountNumber = customerName.charAt(0) + customerName.length() + currencyChoise + "-";
-                    BankAccount bankAccount = new BankAccount(accountNumber, amount, currencyType);
-                    customers[0].getBankAccounts()[0] = bankAccount;
+                    } while (subChoise != 0);
+                    break;
+                case 4:
+                    System.out.println(" Çıkış yapılıyor ... ");
+                    break;
+
+                default:
+                    System.out.println("Geçersiz seçim yaptınız ! ");
             }
 
         } while (choise != 0);
@@ -61,6 +86,38 @@ public class BankingSystem {
         System.out.println(" Bankamızı Seçtiğiniz için Teşekkürler !");
 
 
+    }
+
+    private static void printMenu() {
+        System.out.println("----- Bankacılık işlemleri ----- ");
+        System.out.println(" 1 - Yeni Hesap Aç");
+        System.out.println(" 2- Hesaplarını Listele ");
+        System.out.println("3- Hesap seç ve işlem Yap");
+        System.out.println(" Çıkış Yap ");
+        System.out.print(" Seçimizi Yapın");
+    }
+
+    private static void craateBankAccount(Scanner scanner) {
+        System.out.println(" Başlangıç bakiyesi girin: ");
+        double amount = scanner.nextDouble();
+        System.out.println(" Para Birimi Seçiniz: 1 - TL | 2 - DOLAR | 3- EURO | 4 - ALTIN");
+        int currencyChoise = scanner.nextInt();
+
+        CurrencyType currencyType = switch (currencyChoise) {
+            case 1 -> CurrencyType.TL;
+            case 2 -> CurrencyType.DOLAR;
+            case 3 -> CurrencyType.EURO;
+            case 4 -> CurrencyType.ALTIN;
+            default -> {
+                System.out.println(" Geçersiz birim seçtiniz ! ");
+                yield CurrencyType.TL;
+            }
+        };
+
+        String customerName = customers[0].getName();
+        String accountNumber = customerName.charAt(0) + customerName.length() + currencyChoise + "-";
+        BankAccount bankAccount = new BankAccount(accountNumber, amount, currencyType);
+        customers[0].addAccount(bankAccount);
     }
 
     private static void validatePassword() {

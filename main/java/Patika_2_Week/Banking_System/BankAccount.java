@@ -17,6 +17,18 @@ public class BankAccount {
         this.currencyType = currencyType;
     }
 
+    public CurrencyType getCurrencyType() {
+        return currencyType;
+    }
+
+    public void setCurrencyType(CurrencyType currencyType) {
+        this.currencyType = currencyType;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
     public BankAccount(int accountNumber, double amount, CurrencyType currencyType) {
     }
 
@@ -29,4 +41,31 @@ public class BankAccount {
         }
 
     }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "accountNumber='" + accountNumber + '\'' +
+                ", balance=" + balance +
+                ", currencyType=" + currencyType +
+                '}';
+    }
+
+    public void withDraw(double amuont) {
+        if (amuont > 0 && amuont <= balance) {
+            balance -= amuont;
+            System.out.println(amuont + " " + currencyType.getSembol() + "çekildi. Yeni bakiyeniz = " + balance + currencyType.getSembol());
+        } else if (amuont > balance) {
+            System.out.println(" Yetersiz bakiye ! ");
+        } else {
+            System.out.println(" Geçersiz tutar ! ");
+        }
+
+
+    }
+
 }
