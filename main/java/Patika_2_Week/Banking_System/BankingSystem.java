@@ -69,6 +69,8 @@ public class BankingSystem {
                             case 0:
                                 System.out.println(" Ana menüye aktarılıyorsunuz... ");
                                 break;
+                            default:
+                                System.out.println("Yanlış seçim yaptınız ! ");
                         }
 
                     } while (subChoise != 0);
@@ -76,6 +78,7 @@ public class BankingSystem {
                 case 4:
                     System.out.println(" Çıkış yapılıyor ... ");
                     break;
+
 
                 default:
                     System.out.println("Geçersiz seçim yaptınız ! ");
