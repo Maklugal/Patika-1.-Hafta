@@ -1,4 +1,4 @@
-package Patika_2_Week;
+package Patika_2_Week.Odevler;
 
 class Main {
     public static void main(String[] args) {

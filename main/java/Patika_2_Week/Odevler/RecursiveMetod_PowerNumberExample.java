@@ -1,4 +1,4 @@
-package Patika_2_Week;
+package Patika_2_Week.Odevler;
 
 import java.util.Scanner;
 
