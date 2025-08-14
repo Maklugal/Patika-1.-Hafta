@@ -12,6 +12,7 @@ public class Library {
     public void addBook(Book book) {
         books.add(book);
         System.out.println("Book added: " + book.getTitle());
+
     }
 
     /**

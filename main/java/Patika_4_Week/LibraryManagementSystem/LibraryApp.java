@@ -12,6 +12,7 @@ public class LibraryApp {
         library.addBook(new Book("Effective Java", "Joshua Bloch", 2018));
         library.addBook(new Book("Design Patterns", "GoF", 1994));
 
+
         while (true) {
             System.out.println("\n==== Library Management System ====");
             System.out.println("1) Add a Book");
